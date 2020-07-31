@@ -2,6 +2,7 @@ package com.flys.notification.adapter;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private NotificationOnclickListener onclickListener;
     private SimpleDateFormat formatter;
     private DialogStyle dialogStyle;
+    private Typeface typeface;
 
     public NotificationAdapter(Context context, List<Notification> notifications, DialogStyle dialogStyle, NotificationOnclickListener notificationOnclickListener) {
         this.notifications = notifications;
@@ -38,6 +40,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         this.onclickListener = notificationOnclickListener;
         formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         this.dialogStyle = dialogStyle;
+        typeface = Typeface.createFromAsset(context.getAssets(), dialogStyle.getFontPathFile());
     }
 
     @NonNull
@@ -66,6 +69,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.subTitle.setText(String.valueOf(notification.getSubTitle()));
         holder.subTitle.setTextColor(dialogStyle.getHeaderColor());
         holder.content.setText(HtmlCompat.fromHtml(notification.getContent(), HtmlCompat.FROM_HTML_MODE_LEGACY));
+        holder.content.setTypeface(this.typeface);
         holder.date.setText(formatter.format(notification.getDate()));
         holder.contentPreview.setText(notification.getSubTitle().concat(" ..."));
         holder.hideImage.setOnClickListener(v -> {
