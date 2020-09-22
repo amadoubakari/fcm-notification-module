@@ -101,7 +101,6 @@ public class NotificationDetailsDialogFragment extends DialogFragment {
         if (notification.getImageName() != null && !notification.getImageName().isEmpty()) {
             image.setBackground(data);
             icon.setImageDrawable(data);
-            icon.setBorderColor(dialogStyle.getHeaderColor());
         }
 
 

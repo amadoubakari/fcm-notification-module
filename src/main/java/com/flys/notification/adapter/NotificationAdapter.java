@@ -2,7 +2,6 @@ package com.flys.notification.adapter;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,6 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.flys.notification.R;
-import com.flys.notification.dialog.DialogStyle;
 import com.flys.notification.domain.Notification;
 import com.flys.notification.utils.Utils;
 
@@ -31,16 +29,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private Context context;
     private NotificationOnclickListener onclickListener;
     private SimpleDateFormat formatter;
-    private DialogStyle dialogStyle;
-    private Typeface typeface;
 
-    public NotificationAdapter(Context context, List<Notification> notifications, DialogStyle dialogStyle, NotificationOnclickListener notificationOnclickListener) {
+    public NotificationAdapter(Context context, List<Notification> notifications, NotificationOnclickListener notificationOnclickListener) {
         this.notifications = notifications;
         this.context = context;
         this.onclickListener = notificationOnclickListener;
         formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-        this.dialogStyle = dialogStyle;
-        typeface = Typeface.createFromAsset(context.getAssets(), dialogStyle.getFontPathFile());
     }
 
     @NonNull
@@ -67,9 +61,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
         holder.title.setText(notification.getTitle());
         holder.subTitle.setText(String.valueOf(notification.getSubTitle()));
-        holder.subTitle.setTextColor(dialogStyle.getHeaderColor());
         holder.content.setText(HtmlCompat.fromHtml(notification.getContent(), HtmlCompat.FROM_HTML_MODE_LEGACY));
-        holder.content.setTypeface(this.typeface);
         holder.date.setText(formatter.format(notification.getDate()));
         holder.contentPreview.setText(notification.getSubTitle().concat(" ..."));
         holder.hideImage.setOnClickListener(v -> {
@@ -77,6 +69,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         });
         holder.lytExpandText.setVisibility(View.GONE);
     }
+
 
 
     private void toggleSectionText(ImageView view, View lytExpandText, NestedScrollView nested_scroll_view) {

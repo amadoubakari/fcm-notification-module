@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.flys.notification.R;
 import com.flys.notification.adapter.NotificationAdapter;
-import com.flys.notification.dialog.DialogStyle;
 import com.flys.notification.domain.Notifications;
 
 
@@ -46,8 +45,7 @@ public class NotificationFragment extends Fragment implements NotificationAdapte
         RecyclerView recyclerView = getView().findViewById(R.id.recyclerview);
         Notifications notifications = (Notifications) getArguments().getSerializable("notifications");
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new NotificationAdapter(getContext(), notifications.getNotifications(), new DialogStyle(getResources().getColor(R.color.blue_500)),
-        this));
+        recyclerView.setAdapter(new NotificationAdapter(getContext(), notifications.getNotifications(), this));
     }
 
     @Override
